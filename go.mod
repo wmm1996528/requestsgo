@@ -1,4 +1,4 @@
-module github.com/gospider007/requests
+module github.com/wmm1996528/requestsgo
 
 go 1.24.0
 
