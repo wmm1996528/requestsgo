@@ -206,7 +206,6 @@ func addCookie(req *http.Request, cookies Cookies) {
 		}
 	}
 	if result := cooks.String(); result != "" {
-		fmt.Println("set-cookie", result)
 		req.Header.Set("Cookie", result)
 	}
 }

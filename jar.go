@@ -42,7 +42,6 @@ func (obj *Client) SetCookies(href *url.URL, cookies ...any) error {
 		return nil
 	}
 	cooks, err := any2cookies(href, cookies...)
-	fmt.Println("cooks: ", cooks)
 	if err != nil {
 		return err
 	}

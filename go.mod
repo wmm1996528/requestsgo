@@ -18,6 +18,7 @@ require (
 	github.com/refraction-networking/uquic v0.0.6
 	github.com/refraction-networking/utls v1.7.3
 	github.com/txthinking/socks5 v0.0.0-20230325130024-4230056ae301
+	github.com/wmm1996528/http2 v0.1.3
 	golang.org/x/net v0.40.0
 	gopkg.in/errgo.v2 v2.1.0
 )
@@ -70,7 +71,6 @@ require (
 	github.com/tidwall/sjson v1.2.5 // indirect
 	github.com/txthinking/runnergroup v0.0.0-20250224021307-5864ffeb65ae // indirect
 	github.com/ulikunitz/xz v0.5.12 // indirect
-	github.com/wmm1996528/http2 v0.1.3 // indirect
 	github.com/zeebo/blake3 v0.2.4 // indirect
 	go.mongodb.org/mongo-driver v1.17.3 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
@@ -90,4 +90,3 @@ require (
 	golang.org/x/tools v0.33.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 )
-

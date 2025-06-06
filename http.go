@@ -278,10 +278,7 @@ func (obj *clientConn) httpWrite(req *http.Request, rawHeaders http.Header, orde
 	if _, err = obj.w.WriteString(fmt.Sprintf("%s %s %s\r\n", req.Method, ruri, req.Proto)); err != nil {
 		return
 	}
-	fmt.Println(orderHeaders)
-	fmt.Println(rawHeaders)
 	for _, kv := range NewHeadersWithH1(orderHeaders, rawHeaders) {
-		fmt.Printf("%s: %s\r\n", kv[0], kv[1])
 		if _, err = obj.w.WriteString(fmt.Sprintf("%s: %s\r\n", kv[0], kv[1])); err != nil {
 			return
 		}
