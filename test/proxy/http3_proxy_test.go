@@ -12,9 +12,9 @@ import (
 	"time"
 
 	"github.com/gospider007/gtls"
-	"github.com/gospider007/requests"
 	"github.com/quic-go/quic-go/http3"
 	"github.com/txthinking/socks5"
+	"github.com/wmm1996528/requestsgo"
 )
 
 var (

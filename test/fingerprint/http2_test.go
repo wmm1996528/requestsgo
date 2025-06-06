@@ -4,7 +4,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/gospider007/requests"
+	"github.com/wmm1996528/requestsgo"
 )
 
 func TestH2(t *testing.T) {

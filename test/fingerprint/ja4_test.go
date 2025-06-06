@@ -6,7 +6,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/gospider007/requests"
+	"github.com/wmm1996528/requestsgo"
 )
 
 func TestOrderHeaders(t *testing.T) {

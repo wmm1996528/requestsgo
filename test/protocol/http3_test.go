@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/gospider007/gtls"
-	"github.com/gospider007/requests"
 	"github.com/txthinking/socks5"
+	"github.com/wmm1996528/requestsgo"
 )
 
 func TestHttp3(t *testing.T) {

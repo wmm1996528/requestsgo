@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gospider007/requests"
+	"github.com/wmm1996528/requestsgo"
 )
 
 func TestSendFileWithReader(t *testing.T) {

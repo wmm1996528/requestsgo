@@ -5,7 +5,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/gospider007/requests"
+	"github.com/wmm1996528/requestsgo"
 )
 
 func TestSetCookies(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gospider007/requests"
 	"github.com/gospider007/websocket"
+	"github.com/wmm1996528/requestsgo"
 )
 
 func TestWebSocket(t *testing.T) {

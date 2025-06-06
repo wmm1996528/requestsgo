@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/gospider007/gson"
-	"github.com/gospider007/requests"
 	"github.com/gospider007/tools"
+	"github.com/wmm1996528/requestsgo"
 )
 
 func TestSendJsonWithMap(t *testing.T) {
