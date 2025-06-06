@@ -1,7 +1,6 @@
 package requests
 
 import (
-	"fmt"
 	"github.com/gospider007/gtls"
 	"golang.org/x/net/publicsuffix"
 	"net/http/cookiejar"
