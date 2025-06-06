@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/wmm1996528/http2"
 	"io"
 	"net"
 	"strings"
@@ -11,7 +12,6 @@ import (
 
 	"net/http"
 
-	"github.com/gospider007/http2"
 	"github.com/gospider007/http3"
 	"github.com/gospider007/ja3"
 	"github.com/gospider007/tools"

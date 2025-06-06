@@ -5,13 +5,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/gospider007/tools"
+	"golang.org/x/net/http/httpguts"
 	"io"
 	"net"
 	"net/http"
+	"sort"
 	"strings"
-
-	"github.com/gospider007/tools"
-	"golang.org/x/net/http/httpguts"
 )
 
 type reqReadWriteCtx struct {
@@ -202,6 +202,42 @@ func (obj *clientConn) Stream() io.ReadWriteCloser {
 		w:   obj.conn,
 	}
 }
+
+func NewHeadersWithH1(orderHeaders []interface {
+	Key() string
+	Val() any
+}, rawHeaders http.Header) [][2]string {
+	writeHeaders := [][2]string{}
+	filterKey := make(map[string]struct{})
+	for _, orderHeader := range orderHeaders {
+		key := orderHeader.Key()
+		val := orderHeader.Val()
+		if key == "Cookie" {
+			continue
+		}
+		if rawV, ok := rawHeaders[key]; ok && len(rawV) > 0 {
+			filterKey[key] = struct{}{}
+			for _, v := range rawV {
+				writeHeaders = append(writeHeaders, [2]string{key, v})
+			}
+		} else if val != nil {
+			filterKey[key] = struct{}{}
+			writeHeaders = append(writeHeaders, [2]string{key, fmt.Sprintf("%v", val)})
+		}
+	}
+	for k, vs := range rawHeaders {
+		if _, ok := filterKey[k]; !ok {
+			for _, v := range vs {
+				writeHeaders = append(writeHeaders, [2]string{k, v})
+			}
+		}
+	}
+	sort.SliceStable(writeHeaders, func(x, y int) bool {
+		return strings.HasPrefix(writeHeaders[x][0], ":") && !strings.HasPrefix(writeHeaders[y][0], ":")
+	})
+	return writeHeaders
+}
+
 func (obj *clientConn) httpWrite(req *http.Request, rawHeaders http.Header, orderHeaders []interface {
 	Key() string
 	Val() any
@@ -242,7 +278,10 @@ func (obj *clientConn) httpWrite(req *http.Request, rawHeaders http.Header, orde
 	if _, err = obj.w.WriteString(fmt.Sprintf("%s %s %s\r\n", req.Method, ruri, req.Proto)); err != nil {
 		return
 	}
-	for _, kv := range tools.NewHeadersWithH1(orderHeaders, rawHeaders) {
+	fmt.Println(orderHeaders)
+	fmt.Println(rawHeaders)
+	for _, kv := range NewHeadersWithH1(orderHeaders, rawHeaders) {
+		fmt.Printf("%s: %s\r\n", kv[0], kv[1])
 		if _, err = obj.w.WriteString(fmt.Sprintf("%s: %s\r\n", kv[0], kv[1])); err != nil {
 			return
 		}

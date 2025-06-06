@@ -7,7 +7,6 @@ require (
 	github.com/gospider007/bs4 v0.0.0-20250413121342-fed910fb00c9
 	github.com/gospider007/gson v0.0.0-20250530002642-aee7c1b761df
 	github.com/gospider007/gtls v0.0.0-20250427082859-097a9e35c601
-	github.com/gospider007/http2 v0.0.0-20250427082905-4aed0707e580
 	github.com/gospider007/http3 v0.0.0-20250416085920-b642f3f91f47
 	github.com/gospider007/ja3 v0.0.0-20250427082442-f7dc5fb959e6
 	github.com/gospider007/re v0.0.0-20250217075352-bcb79f285d6c
@@ -71,6 +70,7 @@ require (
 	github.com/tidwall/sjson v1.2.5 // indirect
 	github.com/txthinking/runnergroup v0.0.0-20250224021307-5864ffeb65ae // indirect
 	github.com/ulikunitz/xz v0.5.12 // indirect
+	github.com/wmm1996528/http2 v0.1.3 // indirect
 	github.com/zeebo/blake3 v0.2.4 // indirect
 	go.mongodb.org/mongo-driver v1.17.3 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
@@ -90,3 +90,4 @@ require (
 	golang.org/x/tools v0.33.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 )
+

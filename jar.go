@@ -1,11 +1,11 @@
 package requests
 
 import (
-	"net/http/cookiejar"
-	"net/url"
-
+	"fmt"
 	"github.com/gospider007/gtls"
 	"golang.org/x/net/publicsuffix"
+	"net/http/cookiejar"
+	"net/url"
 )
 
 type Jar interface { // size=8
@@ -37,10 +37,12 @@ func (obj *Client) GetCookies(href *url.URL) Cookies {
 
 // set cookies
 func (obj *Client) SetCookies(href *url.URL, cookies ...any) error {
+
 	if obj.ClientOption.Jar == nil {
 		return nil
 	}
 	cooks, err := any2cookies(href, cookies...)
+	fmt.Println("cooks: ", cooks)
 	if err != nil {
 		return err
 	}

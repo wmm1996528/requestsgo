@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/hex"
 	"errors"
+	"github.com/wmm1996528/http2"
 	"net/textproto"
 	"slices"
 	"strings"
 
-	"github.com/gospider007/http2"
 	"github.com/gospider007/ja3"
 	"github.com/gospider007/tools"
 )

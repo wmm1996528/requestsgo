@@ -14,7 +14,7 @@ import (
 	"github.com/gospider007/tools"
 )
 
-var maxRetryCount = 10
+var maxRetryCount = 1
 
 type Conn interface {
 	CloseWithError(err error) error
