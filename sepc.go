@@ -9,8 +9,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/gospider007/ja3"
 	"github.com/gospider007/tools"
+	"github.com/wmm1996528/ja3"
 )
 
 func (obj *Spec) Map() map[string]any {

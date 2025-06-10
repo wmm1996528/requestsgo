@@ -12,11 +12,11 @@ import (
 	"net/http"
 
 	"github.com/gospider007/http3"
-	"github.com/gospider007/ja3"
 	"github.com/gospider007/tools"
 	"github.com/quic-go/quic-go"
 	uquic "github.com/refraction-networking/uquic"
 	"github.com/wmm1996528/http2"
+	"github.com/wmm1996528/ja3"
 )
 
 type reqTask struct {

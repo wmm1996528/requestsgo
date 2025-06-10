@@ -8,7 +8,6 @@ require (
 	github.com/gospider007/gson v0.0.0-20250530002642-aee7c1b761df
 	github.com/gospider007/gtls v0.0.0-20250427082859-097a9e35c601
 	github.com/gospider007/http3 v0.0.0-20250416085920-b642f3f91f47
-	github.com/gospider007/ja3 v0.0.0-20250427082442-f7dc5fb959e6
 	github.com/gospider007/re v0.0.0-20250217075352-bcb79f285d6c
 	github.com/gospider007/tools v0.0.0-20250529114105-be4d4dbf36a2
 	github.com/gospider007/websocket v0.0.0-20250429035144-b1cf6819063a
@@ -71,6 +70,7 @@ require (
 	github.com/tidwall/sjson v1.2.5 // indirect
 	github.com/txthinking/runnergroup v0.0.0-20250224021307-5864ffeb65ae // indirect
 	github.com/ulikunitz/xz v0.5.12 // indirect
+	github.com/wmm1996528/ja3 v0.1.1 // indirect
 	github.com/zeebo/blake3 v0.2.4 // indirect
 	go.mongodb.org/mongo-driver v1.17.3 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
@@ -91,7 +91,4 @@ require (
 	google.golang.org/protobuf v1.36.6 // indirect
 )
 
-
-replace (
-	github.com/gospider007/ja3 => ../ja3
-)
+//replace github.com/gospider007/ja3 => ../ja3

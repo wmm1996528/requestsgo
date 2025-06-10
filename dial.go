@@ -7,6 +7,7 @@ import (
 	"crypto/tls"
 	"encoding/binary"
 	"errors"
+	"github.com/wmm1996528/ja3"
 
 	"fmt"
 	"io"
@@ -21,7 +22,6 @@ import (
 	"time"
 
 	"github.com/gospider007/gtls"
-	"github.com/gospider007/ja3"
 	"github.com/gospider007/tools"
 	utls "github.com/refraction-networking/utls"
 )
