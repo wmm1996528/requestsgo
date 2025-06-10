@@ -460,11 +460,16 @@ func (obj *Dialer) addTls(ctx context.Context, conn net.Conn, host string, tlsCo
 }
 func (obj *Dialer) addJa3Tls(ctx context.Context, conn net.Conn, host string, spec *ja3.Spec, tlsConfig *utls.Config, forceHttp1 bool) (*utls.UConn, error) {
 	//spec.CipherSuites = randomCipher(spec.CipherSuites)
-	spec.Extensions = ShuffleChromeTLSExtensions(spec.Extensions)
+	//spec.Extensions = ShuffleChromeTLSExtensions(spec.Extensions)
 
 	return specClient.Client(ctx, conn, spec, tlsConfig, gtls.GetServerName(host), forceHttp1)
 }
+func (obj *Dialer) addJa3TlsByUtls(ctx context.Context, conn net.Conn, host string, tlsSpec utls.ClientHelloSpec, tlsConfig *utls.Config, forceHttp1 bool) (*utls.UConn, error) {
+	//spec.CipherSuites = randomCipher(spec.CipherSuites)
+	//spec.Extensions = ShuffleChromeTLSExtensions(spec.Extensions)
 
+	return specClient.ClientUtls(ctx, conn, tlsSpec, tlsConfig, gtls.GetServerName(host), forceHttp1)
+}
 func randomCipher(suites []uint16) []uint16 {
 	cipheres := make([]uint16, len(suites))
 	cipheres[0] = suites[0]
