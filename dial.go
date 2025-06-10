@@ -3,10 +3,17 @@ package requests
 import (
 	"bufio"
 	"context"
+	crand "crypto/rand"
 	"crypto/tls"
 	"encoding/binary"
 	"errors"
+
+	"fmt"
 	"io"
+	"math"
+	"math/big"
+	rand2 "math/rand"
+	"math/rand/v2"
 	"net"
 	"net/http"
 	"net/url"
@@ -452,7 +459,21 @@ func (obj *Dialer) addTls(ctx context.Context, conn net.Conn, host string, tlsCo
 	return tlsConn, tlsConn.HandshakeContext(ctx)
 }
 func (obj *Dialer) addJa3Tls(ctx context.Context, conn net.Conn, host string, spec *ja3.Spec, tlsConfig *utls.Config, forceHttp1 bool) (*utls.UConn, error) {
+	//spec.CipherSuites = randomCipher(spec.CipherSuites)
+	spec.Extensions = ShuffleChromeTLSExtensions(spec.Extensions)
+
 	return specClient.Client(ctx, conn, spec, tlsConfig, gtls.GetServerName(host), forceHttp1)
+}
+
+func randomCipher(suites []uint16) []uint16 {
+	cipheres := make([]uint16, len(suites))
+	cipheres[0] = suites[0]
+	t := suites[1:]
+	rand.Shuffle(len(t), func(i, j int) {
+		t[i], t[j] = t[j], t[i]
+	})
+	copy(cipheres[1:], t)
+	return cipheres
 }
 func (obj *Dialer) Socks5TcpProxy(ctx *Response, proxyAddr Address, remoteAddr Address) (conn net.Conn, err error) {
 	if conn, err = obj.DialContext(ctx, "tcp", proxyAddr); err != nil {
@@ -532,4 +553,40 @@ func (obj *Dialer) clientVerifyHttps(ctx context.Context, conn net.Conn, proxyAd
 		return errors.New(resp.Status)
 	}
 	return
+}
+
+func ShuffleChromeTLSExtensions(exts []ja3.Extension) []ja3.Extension {
+	// unshufCheck checks if the exts[idx] is a GREASE/padding/pre_shared_key extension,
+	// and returns true on success. For these extensions are considered positionally invariant.
+	var skipShuf = func(idx int, exts []ja3.Extension) bool {
+		switch exts[idx].Type {
+		//*UtlsGREASEExtension, *UtlsPaddingExtension,
+		case 0x0A0A, 0x1A1A, 0x2A2A, 0x3A3A, 0x4A4A, 0x5A5A, 0x6A6A, 0x7A7A, 0x8A8A, 0x9A9A, 0xAAAA, 0xBABA, 0xCACA, 0xDADA, 0xEAEA, 0xFAFA, 41:
+			return true
+		default:
+			return false
+		}
+	}
+
+	// Shuffle other extensions
+	randInt64, err := crand.Int(crand.Reader, big.NewInt(math.MaxInt64))
+	if err != nil {
+		// warning: random could be deterministic
+		rand2.Shuffle(len(exts), func(i, j int) {
+			if skipShuf(i, exts) || skipShuf(j, exts) {
+				return // do not shuffle some of the extensions
+			}
+			exts[i], exts[j] = exts[j], exts[i]
+		})
+		fmt.Println("Warning: failed to use a cryptographically secure random number generator. The shuffle can be deterministic.")
+	} else {
+		rand2.New(rand2.NewSource(randInt64.Int64())).Shuffle(len(exts), func(i, j int) {
+			if skipShuf(i, exts) || skipShuf(j, exts) {
+				return // do not shuffle some of the extensions
+			}
+			exts[i], exts[j] = exts[j], exts[i]
+		})
+	}
+
+	return exts
 }
