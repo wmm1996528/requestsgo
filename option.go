@@ -93,7 +93,8 @@ type RequestOption struct {
 	orderHeaders *OrderData //order headers
 	gospiderSpec *GospiderSpec
 	disBody      bool
-	TlsSpec      utls.ClientHelloSpec
+	TlsSpec      func() utls.ClientHelloSpec
+	TLSSpec      utls.ClientHelloSpec
 }
 
 // Upload files with form-data,

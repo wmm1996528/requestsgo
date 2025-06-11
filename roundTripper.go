@@ -287,9 +287,11 @@ func (obj *roundTripper) dialConnecotr(ctx *Response, conne *connecotr, h2 bool)
 func (obj *roundTripper) dialAddTls(option *RequestOption, req *http.Request, netConn net.Conn) (net.Conn, bool, error) {
 	ctx, cnl := context.WithTimeout(req.Context(), option.TlsHandshakeTimeout)
 	defer cnl()
-
-	if len(option.TlsSpec.CipherSuites) != 0 {
-		if tlsConn, err := obj.dialer.addJa3TlsByUtls(ctx, netConn, getHost(req), option.TlsSpec, option.UtlsConfig.Clone(), option.ForceHttp1); err != nil {
+	if option.TlsSpec != nil {
+		option.TLSSpec = option.TlsSpec()
+	}
+	if len(option.TLSSpec.CipherSuites) != 0 {
+		if tlsConn, err := obj.dialer.addJa3TlsByUtls(ctx, netConn, getHost(req), option.TLSSpec, option.UtlsConfig.Clone(), option.ForceHttp1); err != nil {
 			return tlsConn, false, tools.WrapError(err, "add ja3 tls error")
 		} else {
 			return tlsConn, tlsConn.ConnectionState().NegotiatedProtocol == "h2", nil
